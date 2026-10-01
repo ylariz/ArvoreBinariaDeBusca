@@ -126,6 +126,55 @@ public class ArvoreBinariaDeBusca<X extends Comparable<X>> implements Cloneable 
         return false;
     }
 
+    public void removaUmItem(X i) throws Exception {
+        if (i == null)
+            throw new Exception("Informacao ausente");
+
+        No atual = this.raiz;
+        No pai = null;
+
+        while (atual != null) {
+            int comparacao = i.compareTo(atual.getInfo());
+
+            if (comparacao == 0)
+                break;
+
+            pai = atual;
+            if (comparacao < 0)
+                atual = atual.getEsq();
+            else
+                atual = atual.getDir();
+        }
+
+        if (atual == null)
+            throw new Exception("Elemento inexistente");
+        if (atual.getEsq() != null && atual.getDir() != null) {
+            No paiSucessor = atual;
+            No sucessor = atual.getDir();
+            while (sucessor.getEsq() != null) {
+                paiSucessor = sucessor;
+                sucessor = sucessor.getEsq();
+            }
+
+            atual.setInfo(sucessor.getInfo());
+            pai = paiSucessor;
+            atual = sucessor;
+        }
+
+        No filho;
+        if (atual.getEsq() != null)
+            filho = atual.getEsq();
+        else
+            filho = atual.getDir();
+
+        if (pai == null)
+            this.raiz = filho;
+        else if (pai.getEsq() == atual)
+            pai.setEsq(filho);
+        else
+            pai.setDir(filho);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this)
