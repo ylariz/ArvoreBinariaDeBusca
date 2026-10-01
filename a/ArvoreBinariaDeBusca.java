@@ -175,6 +175,79 @@ public class ArvoreBinariaDeBusca<X extends Comparable<X>> implements Cloneable 
             pai.setDir(filho);
     }
 
+    private int getAltura(No r) {
+        if (r == null)
+            return 0;
+
+        int alturaEsq = getAltura(r.getEsq());
+        int alturaDir = getAltura(r.getDir());
+
+        if (alturaEsq > alturaDir)
+            return alturaEsq + 1;
+        else
+            return alturaDir + 1;
+    }
+
+    public int getAltura() {
+        return getAltura(this.raiz);// faça
+    }
+
+    private boolean isBalanceada(No r) {
+        if (r == null)
+            return true;
+
+        int alturaEsq = getAltura(r.getEsq());
+        int alturaDir = getAltura(r.getDir());
+        int diferenca = alturaEsq - alturaDir;
+        if (diferenca > 1 || diferenca < -1)
+            return false;
+        if (!isBalanceada(r.getEsq()))
+            return false;
+        if (!isBalanceada(r.getDir()))
+            return false;
+
+        return true;
+    }
+
+    public boolean isBalanceada() {
+        return isBalanceada(this.raiz);
+        // faça
+    }
+
+    private void balanceieSe(No r) {
+
+        // faça
+    }
+
+    public void balanceieSe() {
+        balanceieSe(this.raiz);
+    }
+
+    // implemente os 4 métodos abaixo, imagiando
+    // que a árvore não é uma árvore binária
+    // DE BUSCA.
+
+    private boolean isEspelho(No r1, No r2) {
+        // faça
+    }
+
+    public boolean isEspelho(ArvoreBinariaDeBusca<X> arv) {
+        if (arv == null)
+            return false;
+
+        return isEspelho(this.raiz, arv.raiz);
+    }
+
+    private void espelheSe(No r) {
+        // faça
+    }
+
+    public void espelheSe() {
+        espelheSe(this.raiz);
+
+        // faça
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this)
